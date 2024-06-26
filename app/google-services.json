@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "939372373444",
+    "project_id": "b1firebaseapp",
+    "storage_bucket": "b1firebaseapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939372373444:android:d586fbf06ba0d22a4a7091",
+        "android_client_info": {
+          "package_name": "a.practice.b1firebaseapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ_ywpdxouZu58_1OlCZyrN7I31RrNpdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
