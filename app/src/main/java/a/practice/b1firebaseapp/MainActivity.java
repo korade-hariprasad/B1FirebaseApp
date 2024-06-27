@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,15 +29,19 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
     FirebaseFirestore db;
     FloatingActionButton fabAdd;
     ArrayList<Student> list;
+    RecyclerView recyclerView;
+    StudentListAdapter studentListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fabAdd=findViewById(R.id.fabAdd);
+        recyclerView=findViewById(R.id.recyclerView);
+        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
+        recyclerView.setLayoutManager(layoutManager);
         list=new ArrayList<>();
         db=FirebaseFirestore.getInstance();
         fabAdd.setOnClickListener(new View.OnClickListener() {
@@ -46,9 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
-
 
     @Override
     protected void onResume() {
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
                         if(task.isSuccessful())
                         {
+                            list.clear();
                             if(task.getResult().getDocuments()!=null)
                             {
                                 for(DocumentSnapshot documentSnapshot:task.getResult().getDocuments())
@@ -73,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
                                     Log.d("mytag",student.getName());
                                     list.add(student);
                                 }
+                                studentListAdapter=new StudentListAdapter(list);
+                                recyclerView.setAdapter(studentListAdapter);
+                                studentListAdapter.notifyDataSetChanged();
+
                                 Log.d("mytag",""+list.size());
                             }
                         }else{
